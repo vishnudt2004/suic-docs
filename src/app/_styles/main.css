@@ -1,0 +1,5 @@
+/* Global main CSS file: maintains the order of CSS imports to be imported as a single file in main.jsx. */
+
+@import "./tailwind.css";
+@import "./config.css";
+@import "./global.css";

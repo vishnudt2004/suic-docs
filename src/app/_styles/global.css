@@ -1,0 +1,12 @@
+/* Global CSS file: for custom styles and to reset default styles. */
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--bg_color-g);
+  color: var(--text_color-g);
+  font-family: var(--font_family-g);
+}
