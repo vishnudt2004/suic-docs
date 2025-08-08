@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={jakartaSans.variable} lang="en">
-      <body className={`m-auto mt-10 p-2 antialiased md:max-w-11/12 lg:p-3`}>
+      <body className="mx-auto my-10 p-2 antialiased md:max-w-[90dvw] lg:p-3">
         {children}
       </body>
     </html>

@@ -1,4 +1,4 @@
-/* Global main CSS file: maintains the order of CSS imports to be imported as a single file in main.jsx. */
+/* Global main CSS file: maintains the order of CSS imports to be imported as a single file in app/layout.tsx. */
 
 @import "./tailwind.css";
 @import "./config.css";

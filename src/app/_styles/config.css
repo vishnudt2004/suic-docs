@@ -1,7 +1,7 @@
 /* Global config CSS file: for global variables and configuration-related items. */
 
 :root {
-  --bg_color-g: #fafafa;
+  --bg_color-g: #f8f9fa;
   --text_color-g: #181818;
   --accent_color-g: #db7093;
   --font_family-g: var(--font-jakarta-sans), sans-serif;

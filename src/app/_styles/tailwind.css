@@ -2,8 +2,3 @@
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-
-.prose pre code[data-language]::before {
-  content: attr(data-language);
-  @apply block pt-2 pr-2 text-right text-xs text-gray-400;
-}
