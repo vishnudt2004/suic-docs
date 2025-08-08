@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { BsArrowUpRight } from "react-icons/bs";
+
+import Button from "@/app/_components/ui/button";
 
 export default function Layout({ children }: { children: React.ReactNode[] }) {
   return (
@@ -9,17 +12,14 @@ export default function Layout({ children }: { children: React.ReactNode[] }) {
           A collection of unique, accessible and reusable UI components.
         </p>
 
-        <Link
-          href="#"
-          className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-300 px-3 py-1 text-xs transition"
-        >
-          Reference Docs
-        </Link>
+        <Button asChild className="gap-1 rounded-full text-xs">
+          <Link href="#" target="_black">
+            Reference Docs <BsArrowUpRight />
+          </Link>
+        </Button>
       </div>
 
-      <div className="flex flex-wrap gap-5">
-        {children}
-      </div>
+      <div className="flex flex-wrap gap-5 px-2">{children}</div>
     </section>
   );
 }

@@ -10,9 +10,10 @@ import MdxWrapper from "../_components/mdx/mdx-wrapper";
 import { getMdxParts } from "../_lib/utils/mdx-utils";
 import constants from "../_lib/constants";
 import Button from "../_components/ui/button";
+import { cleanNewlines } from "../_lib/utils/classname-utils";
 
 function Hero() {
-  const style = {
+  const style = cleanNewlines({
     container: `
       relative
       flex
@@ -37,7 +38,7 @@ function Hero() {
       [&>*>*]:inline
       [&>*>*]:mr-2
   `,
-  };
+  });
 
   return (
     <section className={style.container}>
@@ -73,8 +74,15 @@ async function About() {
     mdxFileName: "home-intro",
   });
 
+  const btn2Style = cleanNewlines(`
+   [&,.dark_&]:bg-[color-mix(in_srgb,var(--accent_color-g)_60%,white_40%)]
+   [&,.dark_&]:text-black
+   [&,.dark_&]:hover:bg-(--accent_color-g)
+   [&,.dark_&]:hover:text-white
+`);
+
   return (
-    <section className="flex min-h-dvh w-full flex-col items-center justify-center gap-15 px-6 py-10 sm:mt-20">
+    <section className="flex min-h-dvh w-full flex-col items-center justify-center gap-15 py-10 sm:mt-20">
       <MdxWrapper>{homeIntro}</MdxWrapper>
       <div className="flex gap-4">
         <Button asChild>
@@ -82,10 +90,7 @@ async function About() {
             Read Docs <BiBookContent />
           </Link>
         </Button>
-        <Button
-          asChild
-          className="bg-(--accent_color-g)/50 hover:bg-(--accent_color-g)"
-        >
+        <Button asChild className={btn2Style}>
           <Link href="/docs/components">
             Components <BiGridAlt className="rotate-45" />
           </Link>

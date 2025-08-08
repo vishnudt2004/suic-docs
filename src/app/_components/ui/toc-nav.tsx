@@ -49,7 +49,9 @@ export default function TocNav({
           className={clsx(
             "block transition hover:font-semibold",
             level === 2 ? "ml-0" : "ml-3",
-            activeId === id ? "font-semibold text-black" : "text-gray-700",
+            activeId === id
+              ? "font-semibold text-black dark:text-white"
+              : "text-gray-700 dark:text-gray-300",
           )}
           onClick={onClick}
         >

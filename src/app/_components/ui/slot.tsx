@@ -1,6 +1,6 @@
 import React from "react";
 
-import cn from "@/app/_lib/utils/cn";
+import { prepareClassName } from "@/app/_lib/utils/classname-utils";
 
 export type AsChildPropsType<DefaultElementProps> =
   | ({ asChild?: false } & DefaultElementProps)
@@ -24,7 +24,10 @@ export const Slot: React.FC<SlotProps> = ({ children, ...props }) => {
         ...props.style,
         ...childWithProps.props.style,
       },
-      className: cn(props.className, childWithProps.props.className),
+      className: prepareClassName(
+        props.className,
+        childWithProps.props.className,
+      ),
     });
   }
 

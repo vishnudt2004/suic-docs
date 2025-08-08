@@ -2,7 +2,17 @@
 
 :root {
   --bg_color-g: #f8f9fa;
-  --text_color-g: #181818;
+  --fg_color-g: #181818;
   --accent_color-g: #db7093;
   --font_family-g: var(--font-jakarta-sans), sans-serif;
+
+  /* z indexes */
+  --toc-z: 1;
+  --toc-btn-z: 2;
+  --theme-btn-z: 2;
+}
+
+html.dark {
+  --bg_color-g: #181818;
+  --fg_color-g: #f8f9fa;
 }

@@ -11,7 +11,7 @@ export default function MdxWrapper({
   frontmatter?: { title: string };
 }) {
   return (
-    <div className="prose h-full w-full">
+    <div className="prose dark:prose-invert h-full w-full">
       {frontmatter && (
         <h1 className="mb-10 text-3xl font-bold">{frontmatter.title}</h1>
       )}
