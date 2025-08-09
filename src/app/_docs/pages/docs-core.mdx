@@ -1,0 +1,86 @@
+---
+id: core-documentation
+title: Core Documentation
+description: Core Documentation of Simple-UI-Components.
+layout: docs
+toc: true
+draft: false
+---
+
+---
+
+## Introduction
+
+Simple-UI-Components is a **personal, local-first collection** of unique, editable UI components built entirely from my own ideas and inspirations — not a published, full-blown UI library.
+
+This isn’t designed to provide every single component you’d expect in a standard library. Instead, it’s a **curated set of reusable and creative components** with distinctive UI, meant for developers who want to directly edit, adapt, and integrate components into their own projects.
+
+### Key Principles
+
+- **Not a full library — a personal collection:** made for portfolio work, prototypes, and internal tools; focused on uniqueness, not covering every use case.
+- **Install only what you need:** there’s no single package install — each component can be added individually via the CLI. The entire site and components live in one repo.
+- **Fully customizable, zero lock-in:** copy, tweak, and transform components however you like. Most support configurable props and CSS variables.
+- **Every component is documented:** with examples, usage notes, and prop references.
+- **Built with purpose:** reflects my design taste, creativity, and learning journey. You may find some styles don’t fit your taste — and that’s fine; they’re easy to modify.
+
+**Note:** Every component UI is created from scratch based on my own ideas; nothing is copied from other libraries or sites.
+
+**Attribution & Credits**
+
+- Core stack: Next.js, TypeScript, Tailwind CSS.
+- Inspired by: `shadcn-ui` (local-install pattern).
+- Made with help from ChatGPT — if you spot anything off that doesn’t match this project’s intent, please let me know.
+
+**Issues**
+Report bugs, suggest features, or request components here: [GitHub Issues](https://github.com/vishnudt2004/simple-ui-components/issues)
+
+---
+
+## Installation
+
+```bash
+# npx
+npx simple-ui add <component-name>
+
+# pnpm
+pnpm dlx simple-ui add <component-name>
+
+# yarn
+yarn dlx simple-ui add <component-name>
+```
+
+---
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click Me</Button>;
+}
+```
+
+See each component's page in **Components** for props, variants, and examples.
+
+---
+
+## Customization
+
+- Tailwind-based, override via `className` or custom wrapper.
+- Supports theme tokens (CSS variables) for light/dark.
+
+Example:
+
+```tsx
+<Button className="bg-red-500 hover:bg-red-600">Delete</Button>
+```
+
+---
+
+## Functionality
+
+- **Accessible** — ARIA patterns, keyboard support.
+- **Responsive** — mobile-first, responsive variants.
+- **Tree-shakable** — import only what you use.
+- **Theme-ready** — light/dark support built-in.

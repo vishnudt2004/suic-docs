@@ -1,7 +1,10 @@
+import clsx from "clsx";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeHighlight from "rehype-highlight";
+
+import { proseOverrides } from "@/app/_styles/prose-overrides";
 
 export default function MdxWrapper({
   children,
@@ -11,7 +14,12 @@ export default function MdxWrapper({
   frontmatter?: { title: string };
 }) {
   return (
-    <div className="prose dark:prose-invert h-full w-full">
+    <div
+      className={clsx(
+        "prose prose-zinc dark:prose-invert h-full w-full",
+        proseOverrides,
+      )}
+    >
       {frontmatter && (
         <h1 className="mb-10 text-3xl font-bold">{frontmatter.title}</h1>
       )}
