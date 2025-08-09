@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./_styles/main.css";
-import ThemeButton from "./_components/ui/theme-btn";
+import Header from "./_components/layout/header";
+import ThemeProvider from "./_components/ui/theme-provider";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-jakarta-sans",
@@ -22,10 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={jakartaSans.variable} lang="en" suppressHydrationWarning>
-      <body className="mx-auto my-10 px-6 py-2 antialiased md:max-w-[90dvw] lg:py-3">
-        <ThemeProvider attribute="class" enableSystem={false}>
+      <body className="mx-auto mt-2 mb-10 px-6 antialiased md:max-w-[90dvw]">
+        <ThemeProvider>
+          <Header />
           {children}
-          <ThemeButton />
         </ThemeProvider>
       </body>
     </html>

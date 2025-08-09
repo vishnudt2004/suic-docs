@@ -2,6 +2,17 @@ import { FaCircleNotch } from "react-icons/fa6";
 
 import { cleanNewlines } from "@/app/_lib/utils/classname-utils";
 
+export function LogoMini() {
+  return (
+    <div className="flex h-8 w-16 [&>*]:flex [&>*]:h-full [&>*]:w-1/2 [&>*]:items-center [&>*]:justify-center">
+      <div className="bg-(--fg_color-g)" />
+      <div className="bg-(--accent_color-g)">
+        <FaCircleNotch className="-rotate-45 text-(--fg_color-g)" />
+      </div>
+    </div>
+  );
+}
+
 export default function Logo() {
   const child2Style = cleanNewlines(`
     flex

@@ -49,7 +49,7 @@ export default function DocLayout({
           fixed
           inset-y-0
           right-0
-          z-(--toc-z)
+          z-0
           m-auto
           h-dvh
           overflow-y-auto
@@ -62,7 +62,7 @@ export default function DocLayout({
           dark:border-neutral-600
           [&_:last-child]:ml-1
         `,
-        btn: "fixed right-6 bottom-6 z-(--toc-btn-z) rounded-full p-4 min-[950px]:hidden",
+        btn: "fixed right-6 bottom-6 z-1 rounded-full p-4 min-[950px]:hidden",
       },
     },
     docContainer: "flex-1 px-4 pt-2 pb-40 [&_:is(h2,h3,h4)]:scroll-m-20",

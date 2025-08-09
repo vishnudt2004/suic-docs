@@ -18,7 +18,7 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply border-x-2 border-(--bg_color-g) bg-neutral-600;
+    @apply border-x-2 border-(--bg_color-g) bg-neutral-600 bg-clip-content;
   }
 
   ::-webkit-scrollbar-thumb:hover {
