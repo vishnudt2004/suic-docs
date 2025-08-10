@@ -38,7 +38,10 @@ export default function Breadcrumbs({
                 {config[segment] ?? decodeURIComponent(segment)}
               </span>
             ) : (
-              <Link href={href} className="flex items-center gap-1">
+              <Link
+                href={href}
+                className="flex items-center gap-1 hover:font-medium"
+              >
                 {config[segment] ?? decodeURIComponent(segment)}
               </Link>
             )}
