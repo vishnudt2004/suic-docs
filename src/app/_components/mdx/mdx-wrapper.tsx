@@ -1,28 +1,31 @@
-import clsx from "clsx";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeHighlight from "rehype-highlight";
 
+import "highlight.js/styles/atom-one-dark.css";
+
+import { mdxComponents } from "./mdx-components";
 import { proseOverrides } from "@/app/_styles/prose-overrides";
+import { prepareClassName as cn } from "@/app/_lib/utils/classname-utils";
 
 export default function MdxWrapper({
   children,
-  frontmatter,
+  className,
+  additionalComponents = {},
 }: {
   children: string;
-  frontmatter?: { title: string };
+  className?: string;
+  additionalComponents?: Record<string, React.ComponentType>;
 }) {
   return (
     <div
-      className={clsx(
-        "prose prose-zinc dark:prose-invert h-full w-full",
+      className={cn(
+        "prose prose-zinc dark:prose-invert",
         proseOverrides,
+        className,
       )}
     >
-      {frontmatter && (
-        <h1 className="mb-10 text-3xl font-bold">{frontmatter.title}</h1>
-      )}
       <MDXRemote
         source={children}
         options={{
@@ -31,6 +34,7 @@ export default function MdxWrapper({
             rehypePlugins: [rehypeHighlight, rehypeSlug],
           },
         }}
+        components={{ ...mdxComponents, ...additionalComponents }}
       />
     </div>
   );

@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export type ClassName = string;
+
 type StyleObject = string | StyleObjectMap;
 type StyleObjectMap = {
   [key: string]: StyleObject;
@@ -22,7 +24,7 @@ export function cleanNewlines<T extends StyleObject>(styleObj: T): T {
   return styleObj;
 }
 
-export function prepareClassName(...inputs: ClassValue[]) {
+export function prepareClassName(...inputs: ClassValue[]): ClassName {
   return twMerge(
     clsx(...inputs)
       .split(/\s+/)

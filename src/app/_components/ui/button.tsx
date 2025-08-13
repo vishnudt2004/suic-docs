@@ -1,11 +1,14 @@
-import Link from "next/link";
-import { BsArrowUpRight } from "react-icons/bs";
-
-import { Slot, type AsChildPropsType } from "./slot";
-import { prepareClassName as cn } from "@/app/_lib/utils/classname-utils";
+import { type AnchorHTMLAttributes } from "react";
+import Link, { type LinkProps } from "next/link";
 import { CgArrowTopRight } from "react-icons/cg";
 
-type ButtonProps = AsChildPropsType<
+import { Slot, type AsChildPropsType } from "./slot";
+import {
+  type ClassName,
+  prepareClassName as cn,
+} from "@/app/_lib/utils/classname-utils";
+
+export type ButtonProps = AsChildPropsType<
   React.ButtonHTMLAttributes<HTMLButtonElement>
 > & {
   style?: React.CSSProperties;
@@ -15,7 +18,7 @@ type ButtonProps = AsChildPropsType<
 export default function Button({ asChild, className, ...props }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
-  const dfltStyle = `
+  const dfltStyle: ClassName = `
     inline-flex
     w-fit
     items-center
@@ -25,6 +28,7 @@ export default function Button({ asChild, className, ...props }: ButtonProps) {
     py-1
     text-nowrap
     transition
+    cursor-pointer
     hover:bg-neutral-700
     hover:text-white
     dark:bg-neutral-700
@@ -35,17 +39,23 @@ export default function Button({ asChild, className, ...props }: ButtonProps) {
   return <Comp {...props} className={cn(dfltStyle, className)} />;
 }
 
+export type RefBtnProps = LinkProps &
+  ButtonProps &
+  AnchorHTMLAttributes<HTMLAnchorElement>;
+
 export function RefBtn({
   children = "Reference",
   href,
   className,
-}: { href: string } & ButtonProps) {
+  target = "_black",
+  ...rest
+}: RefBtnProps) {
   return (
     <Button
       asChild
       className={cn("gap-1 rounded-full px-2 py-0.5 text-xs", className)}
     >
-      <Link href={href} target="_black">
+      <Link href={href} target={target} {...rest}>
         {children} <CgArrowTopRight />
       </Link>
     </Button>

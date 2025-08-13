@@ -1,15 +1,13 @@
-import Link from "next/link";
-import { BiBookContent, BiGridAlt } from "react-icons/bi";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { FiPackage } from "react-icons/fi";
 import { TbBrush } from "react-icons/tb";
 import { GiSplitCross } from "react-icons/gi";
 
-import Logo from "../_components/ui/logo";
+import Logo from "../_components/site/logo";
+import { CtaBtns } from "../_components/site/cta-elements";
 import MdxWrapper from "../_components/mdx/mdx-wrapper";
 import { getMdxParts } from "../_lib/utils/mdx-utils";
 import constants from "../_lib/constants";
-import Button from "../_components/ui/button";
 import { cleanNewlines } from "../_lib/utils/classname-utils";
 
 function Hero() {
@@ -74,28 +72,10 @@ async function About() {
     mdxFileName: "home-intro",
   });
 
-  const btn2Style = cleanNewlines(`
-   [&,.dark_&]:bg-[color-mix(in_srgb,var(--accent_color-g)_60%,white_40%)]
-   [&,.dark_&]:text-black
-   [&,.dark_&]:hover:bg-(--accent_color-g)
-   [&,.dark_&]:hover:text-white
-`);
-
   return (
     <section className="flex min-h-dvh w-full flex-col items-center justify-center gap-15 py-10 sm:mt-20">
-      <MdxWrapper>{homeIntro}</MdxWrapper>
-      <div className="flex gap-4">
-        <Button asChild>
-          <Link href="/docs">
-            Read Docs <BiBookContent />
-          </Link>
-        </Button>
-        <Button asChild className={btn2Style}>
-          <Link href="/docs/components">
-            Components <BiGridAlt className="rotate-45" />
-          </Link>
-        </Button>
-      </div>
+      <MdxWrapper className="max-w-[65ch]">{homeIntro}</MdxWrapper>
+      <CtaBtns />
     </section>
   );
 }

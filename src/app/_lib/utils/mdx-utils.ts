@@ -10,15 +10,14 @@ type Heading = {
 };
 
 type Frontmatter = {
+  name: string;
   title: string;
   description?: string;
-  toc?: boolean;
+  draft: boolean;
   [key: string]: unknown; // allow extra optional keys
 };
 
-function getMdxHeadings(markdown: string, enabled = true): Heading[] {
-  if (!enabled) return [];
-
+function getMdxTocs(markdown: string): Heading[] {
   const slugger = new GithubSlugger();
 
   return markdown
@@ -42,45 +41,63 @@ export async function getMdxParts({
 }): Promise<{
   content: string;
   frontmatter: Frontmatter;
-  headings: Heading[];
+  tocs: Heading[];
   filePath: string;
 }> {
   const filePath = path.join(process.cwd(), mdxFilePath, `${mdxFileName}.mdx`);
 
-  const raw = await fs.readFile(filePath, "utf8");
-  const { content, data } = matter(raw);
+  try {
+    const raw = await fs.readFile(filePath, "utf8");
+    const { content, data } = matter(raw);
 
-  const frontmatter = data as Frontmatter;
+    const frontmatter = data as Frontmatter;
 
-  const headings = getMdxHeadings(content, frontmatter?.toc !== false);
+    const tocs = getMdxTocs(content);
 
-  return {
-    filePath,
-    content,
-    frontmatter,
-    headings,
-  };
+    return {
+      filePath,
+      content,
+      frontmatter,
+      tocs,
+    };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Error reading MDX file: ${filePath}`, error.message);
+    } else {
+      console.error(`Unknown error reading MDX file: ${filePath}`, error);
+    }
+    throw error;
+  }
 }
 
 export async function getAllMdx({ mdxFilesPath }: { mdxFilesPath: string }) {
   const dir = path.join(process.cwd(), mdxFilesPath);
-  const files = await fs.readdir(dir);
 
-  return Promise.all(
-    files
-      .filter((file) => file.endsWith(".mdx"))
-      .map(async (file) => {
-        const fileName = file.replace(/\.mdx$/, "");
-        const { frontmatter, headings } = await getMdxParts({
-          mdxFilePath: mdxFilesPath,
-          mdxFileName: fileName,
-        });
+  try {
+    const files = await fs.readdir(dir);
 
-        return {
-          slug: fileName,
-          frontmatter,
-          headings,
-        };
-      }),
-  );
+    return Promise.all(
+      files
+        .filter((file) => file.endsWith(".mdx"))
+        .map(async (file) => {
+          const fileName = file.replace(/\.mdx$/, "");
+          const { frontmatter } = await getMdxParts({
+            mdxFilePath: mdxFilesPath,
+            mdxFileName: fileName,
+          });
+
+          return {
+            slug: fileName,
+            frontmatter,
+          };
+        }),
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Error reading MDX directory: ${dir}`, error.message);
+    } else {
+      console.error(`Unknown error reading MDX directory: ${dir}`, error);
+    }
+    throw error;
+  }
 }

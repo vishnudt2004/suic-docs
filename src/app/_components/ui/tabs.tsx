@@ -1,111 +1,124 @@
 "use client";
 
-import { ReactNode, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { motion, AnimatePresence, type MotionProps } from "motion/react";
-import type { ClassNameValue } from "tailwind-merge";
 
 import { prepareClassName as cn } from "@/app/_lib/utils/classname-utils";
 
-type TabsPropType = {
-  tabs: { label: ReactNode; element: ReactNode }[];
-  classNames?: Partial<Record<ClassNameKeys, ClassNameValue>>;
-  motionProps?: MotionProps;
-  currentTab: number;
-  onSwitch: (newIndex: number) => void;
+type TabsContextValue = {
+  currentValue: string;
+  setValue: (value: string) => void;
 };
 
-type ClassNameKeys = "root" | "labels" | "label" | "element";
+const TabsContext = createContext<TabsContextValue | null>(null);
 
-export default function Tabs({
-  tabs,
-  classNames,
-  motionProps,
-  currentTab = 0,
-  onSwitch,
-}: TabsPropType) {
+export function TabsRoot({
+  defaultValue,
+  children,
+  className,
+}: {
+  defaultValue: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  const [currentValue, setCurrentValue] = useState(defaultValue);
   return (
-    <div
-      className={cn("tabs__root flex w-fit flex-col gap-1", classNames?.root)}
-    >
-      <div
-        role="tablist"
-        className={cn("tabs__labels flex gap-4 px-2", classNames?.labels)}
-      >
-        {tabs.map(({ label }, ind) => (
-          <span
-            role="tab"
-            aria-selected={ind === currentTab}
-            tabIndex={0}
-            key={ind}
-            onClick={() => onSwitch(ind)}
-            onKeyDown={(e) => {
-              e.key === "Enter" && onSwitch(ind);
-            }}
-            className={cn(
-              "tabs__label p cursor-pointer transition-colors hover:font-medium",
-              ind === currentTab
-                ? "font-medium text-(--fg_color-g)"
-                : "text-neutral-600 dark:text-gray-300",
-              classNames?.label,
-            )}
-          >
-            {label}
-          </span>
-        ))}
+    <TabsContext.Provider value={{ currentValue, setValue: setCurrentValue }}>
+      <div className={cn("tabs__root flex flex-col gap-1", className)}>
+        {children}
       </div>
+    </TabsContext.Provider>
+  );
+}
 
-      <div className={cn("tabs__element p-2", classNames?.element)}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentTab}
-            {...{
-              initial: { opacity: 0, y: 6 },
-              animate: { opacity: 1, y: 0 },
-              exit: { opacity: 0, y: -6 },
-              transition: { duration: 0.25, ease: "easeOut" },
-            }}
-            {...motionProps}
-          >
-            {tabs[currentTab].element}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+export function TabsList({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div role="tablist" className={cn("tabs__list mb-2 flex gap-4", className)}>
+      {children}
     </div>
   );
 }
 
-export function DocsPreviewTabs({ tabs }: Pick<TabsPropType, "tabs">) {
-  const [currentTab, setCurrentTab] = useState(0);
-  const [direction, setDirection] = useState(0);
+export function TabsTrigger({
+  value,
+  children,
+  className,
+}: {
+  value: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  const ctx = useContext(TabsContext);
+  if (!ctx) throw new Error("TabsTrigger must be used inside TabsRoot");
 
-  const handleSwitch = (ind: number) => {
-    setDirection(ind > currentTab ? 1 : -1);
-    setCurrentTab(ind);
-  };
-
-  const memoizedMotionProps = useMemo<MotionProps>(
-    () => ({
-      custom: direction,
-      variants: {
-        enter: (dir: number) => ({ x: dir > 0 ? 40 : -40, opacity: 0 }),
-        center: { x: 0, opacity: 1 },
-        // exit: (dir: number) => ({}),
-      },
-      initial: "enter",
-      animate: "center",
-      exit: "exit",
-      transition: { duration: 0.25, ease: "easeOut" },
-    }),
-    [direction],
-  );
+  const isActive = ctx.currentValue === value;
 
   return (
-    <Tabs
-      currentTab={currentTab}
-      onSwitch={handleSwitch}
-      motionProps={memoizedMotionProps}
-      classNames={{ root: "overflow-x-hidden" }}
-      tabs={tabs}
-    />
+    <span
+      role="tab"
+      aria-selected={isActive}
+      tabIndex={0}
+      onClick={() => ctx.setValue(value)}
+      onKeyDown={(e) => e.key === "Enter" && ctx.setValue(value)}
+      className={cn(
+        "tabs__trigger cursor-pointer transition-colors hover:font-medium",
+        isActive
+          ? "font-medium text-(--fg_color-g)"
+          : "text-neutral-600 dark:text-gray-300",
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
+export function TabsBody({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={cn("tabs__body", className)}>{children}</div>;
+}
+
+export function TabsContent({
+  value,
+  children,
+  motionProps,
+  className,
+}: {
+  value: string;
+  children: ReactNode;
+  motionProps?: MotionProps;
+  className?: string;
+}) {
+  const ctx = useContext(TabsContext);
+  if (!ctx) throw new Error("TabsContent must be used inside TabsRoot");
+
+  const isActive = ctx.currentValue === value;
+
+  return (
+    <AnimatePresence mode="popLayout">
+      {isActive ? (
+        <motion.div
+          key={value}
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          {...motionProps}
+          className={cn(className)}
+        >
+          {children}
+        </motion.div>
+      ): null}
+    </AnimatePresence>
   );
 }

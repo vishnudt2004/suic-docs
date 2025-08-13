@@ -10,10 +10,10 @@ import { cleanNewlines } from "@/app/_lib/utils/classname-utils";
 
 export default function DocLayout({
   children,
-  headings,
+  tocs,
 }: {
   children: ReactNode;
-  headings: { id: string; text: string; level: number }[];
+  tocs: { id: string; text: string; level: number }[];
 }) {
   const [showToc, setShowToc] = useState(false);
 
@@ -41,7 +41,7 @@ export default function DocLayout({
         pr-2
         min-[950px]:sticky
         min-[950px]:block
-        dark:border-neutral-600
+        dark:border-neutral-700
         [&_:last-child]:ml-1
       `,
       mobile: {
@@ -65,7 +65,7 @@ export default function DocLayout({
         btn: "fixed right-6 bottom-6 z-1 rounded-full p-4 min-[950px]:hidden",
       },
     },
-    docContainer: "flex-1 px-4 pt-2 pb-40 [&_:is(h2,h3,h4)]:scroll-m-20",
+    contentContainer: "flex-1 md:px-4 pt-2 pb-40 [&_:is(h2,h3,h4)]:scroll-m-20",
   });
 
   return (
@@ -73,7 +73,7 @@ export default function DocLayout({
       {/* Desktop TOC */}
       <aside className={style.tocSidebar.desktop}>
         <h2 className={style.tocSidebar.heading}>Table of Contents</h2>
-        <TocNav headings={headings} />
+        <TocNav headings={tocs} />
       </aside>
 
       {/* Tab/Mobile TOC toggle button */}
@@ -96,13 +96,13 @@ export default function DocLayout({
             className={style.tocSidebar.mobile.container}
           >
             <h2 className={style.tocSidebar.heading}>Table of Contents</h2>
-            <TocNav headings={headings} onClick={handleSectionClick} />
+            <TocNav headings={tocs} onClick={handleSectionClick} />
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Main content */}
-      <main className={style.docContainer}>{children}</main>
+      <main className={style.contentContainer}>{children}</main>
     </div>
   );
 }

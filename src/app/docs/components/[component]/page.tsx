@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import DocLayout from "@/app/_components/layout/doc-layout";
 import MdxWrapper from "@/app/_components/mdx/mdx-wrapper";
 import { getAllMdx, getMdxParts } from "@/app/_lib/utils/mdx-utils";
 import constants from "@/app/_lib/constants";
@@ -27,12 +28,16 @@ export default async function Page({
 }) {
   const { component } = await params;
 
-  const { content, frontmatter } = await getMdxParts({
+  const { tocs, content, frontmatter } = await getMdxParts({
     mdxFilePath: docPath,
     mdxFileName: component,
   });
 
   if (frontmatter.draft) notFound();
 
-  return <MdxWrapper frontmatter={frontmatter}>{content}</MdxWrapper>;
+  return (
+    <DocLayout tocs={tocs}>
+      <MdxWrapper>{content}</MdxWrapper>
+    </DocLayout>
+  );
 }

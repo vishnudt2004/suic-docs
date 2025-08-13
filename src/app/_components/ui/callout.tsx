@@ -25,10 +25,7 @@ export default function Callout({
 }: CalloutProps) {
   return (
     <div
-      className={cn(
-        "my-4 max-w-[65ch] border-l-4 p-4", // 65ch - prose default
-        styles[type],
-      )}
+      className={cn("my-4 border-l-4 p-4", styles[type])}
     >
       {title && <strong className="mb-1 block">{title}</strong>}
       <div className="[&>p:last-child]:mb-0">{children}</div>

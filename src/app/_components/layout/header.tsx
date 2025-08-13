@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuHouse } from "react-icons/lu";
 
-import { LogoMini } from "../ui/logo";
+import { LogoMini } from "../site/logo";
 import Breadcrumbs from "../ui/breadcrumbs";
 import ThemeButton from "../ui/theme-btn";
 import { cleanNewlines } from "@/app/_lib/utils/classname-utils";
