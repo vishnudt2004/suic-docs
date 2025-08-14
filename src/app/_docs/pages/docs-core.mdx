@@ -1,37 +1,28 @@
----
-title: Core Documentation
-description: Core Documentation of Simple-UI-Components.
-draft: false
----
-
 # Core Documentation
 
 ## Introduction
 
-Simple-UI-Components is a **personal, local-first collection** of unique, editable UI components built entirely from my own ideas and inspirations — not a published, full-blown UI library.
+Simple UI Components is a **personal, local-first collection** of reusable UI and frontend utility components — all designed and built from scratch based on my own ideas and needs.
 
-This isn’t designed to provide every single component you’d expect in a standard library. Instead, it’s a **curated set of reusable and creative components** with distinctive UI, meant for developers who want to directly edit, adapt, and integrate components into their own projects.
+This is **not** a big, published, general-purpose UI library. Instead, it’s a **curated set of distinctive, editable components** meant for direct integration into your projects — perfect for portfolio work, prototypes, and internal tools.
+
+> **Note**
+> Every component UI is created from scratch. Nothing is copied from other libraries or sites.
 
 <CtaBtn />
 
-### Key Principles
+---
 
-- **Not a full library — a personal collection:** made for portfolio work, prototypes, and internal tools; focused on uniqueness, not covering every use case.
-- **Install only what you need:** there’s no single package install — each component can be added individually via the CLI. The entire site and components live in one repo.
-- **Fully customizable, zero lock-in:** copy, tweak, and transform components however you like. Most support configurable props and CSS variables.
-- **Every component is documented:** with examples, usage notes, and prop references.
-- **Built with purpose:** reflects my design taste, creativity, and learning journey. You may find some styles don’t fit your taste — and that’s fine; they’re easy to modify.
+## Highlights & Principles
 
-**Note:** Every component UI is created from scratch based on my own ideas; nothing is copied from other libraries or sites.
-
-**Attribution & Credits**
-
-- Core stack: Next.js, TypeScript, Tailwind CSS.
-- Inspired by: `shadcn-ui` (local-install pattern).
-- Made with help from ChatGPT — if you spot anything off that doesn’t match this project’s intent, please let me know.
-
-**Issues**
-Report bugs, suggest features, or request components here: [GitHub Issues](https://github.com/vishnudt2004/simple-ui-components/issues)
+- **Not a full library — a personal collection:** Made for my own projects, prototypes, and experiments; uniqueness over coverage.
+- **Mix of UI & utility components:** Includes not just visual UI (buttons, tabs, callouts) but also functional/frontend helpers like `load-more-data`.
+- **Install only what you need:** No single massive package — add components individually via CLI.
+- **Builder + Presets pattern:** Most component have a “builder” (unstyled, functional foundation) and optional presets. Use presets or create your own design in minutes.
+- **Fully customizable:** Most styles can be overridden via Tailwind class names, even deeply nested (e.g., `classNames.parent`, `classNames.child`, etc.).
+- **Direct Tailwind integration:** Zero extra styling layers — edit right in your Tailwind project.
+- **Lightweight & minimal boilerplate:** Easy to fork into your own style or design system.
+- **Variants & examples included:** Some components include multiple examples and variants to jump-start usage.
 
 ---
 
@@ -39,13 +30,13 @@ Report bugs, suggest features, or request components here: [GitHub Issues](https
 
 ```bash
 # npx
-npx simple-ui add <component-name>
+npx sui-components-cli add <component-name>
 
 # pnpm
-pnpm dlx simple-ui add <component-name>
+pnpm dlx sui-components-cli add <component-name>
 
 # yarn
-yarn dlx simple-ui add <component-name>
+yarn dlx sui-components-cli add <component-name>
 ```
 
 ---
@@ -60,14 +51,16 @@ export default function Example() {
 }
 ```
 
-See each component's page in **Components** for props, variants, and examples.
+You can find **every component’s documentation** here: **[/docs/components/](/docs/components/)**.
+Each page clearly explains installation, usage, customization, and includes **copy-paste-ready** snippets.
 
 ---
 
 ## Customization
 
-- Tailwind-based, override via `className` or custom wrapper.
-- Supports theme tokens (CSS variables) for light/dark.
+- Built with Tailwind CSS — override styles directly via `className`.
+- Supports deep customization through structured `classNames` props (e.g., `classNames.parent`, `classNames.child`).
+- Many components also provide customization-specific props (e.g., `accentColor`, `decorationElements`).
 
 Example:
 
@@ -75,13 +68,34 @@ Example:
 <Button className="bg-red-500 hover:bg-red-600">Delete</Button>
 ```
 
+or
+
+```tsx
+<Button classNames={{ parent: "bg-blue-500", child: "text-white" }}>
+  Save
+</Button>
+```
+
 ---
 
-## Functionality
+## Extra Notes
 
-- **Accessible** — ARIA patterns, keyboard support.
-- **Responsive** — mobile-first, responsive variants.
-- **Tree-shakable** — import only what you use.
-- **Theme-ready** — light/dark support built-in.
+- **Builder components:** Headless + Tailwind-ready foundations for full control over style.
+- **Presets:** Pre-styled versions you can use instantly or modify.
+- **Some components are utilities:** e.g., data loaders, layout helpers — not just UI elements.
+- **Some may have multiple variants/examples** ready to use.
+- **This is a personal, evolving project** — components may change or improve over time.
+
+---
+
+## Final Words
+
+If you find value in this project, **star** it on [GitHub](https://github.com/vishnudt2004/simple-ui-components/) and **share** it! A simple attribution link to [simple-ui-components.vercel.app](https://simple-ui-components.vercel.app) is always appreciated.
+
+If this project grows enough, I may release a polished open-source version.
+
+**Report bugs / request features:** [<GHIcon /> GitHub Issues](https://github.com/vishnudt2004/simple-ui-components/issues)
+
+Documentation made with the help of _ChatGPT_.
 
 <CtaLink />

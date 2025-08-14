@@ -22,7 +22,7 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-[3px] border-x-2 border-(--bg_color-g) bg-neutral-600 bg-clip-content hover:bg-neutral-800;
+    @apply rounded-[3px] border-x-2 border-(--bg_color-g) bg-neutral-500 bg-clip-content hover:bg-neutral-800;
   }
 
   html.dark {
@@ -31,7 +31,7 @@ body {
     }
 
     ::-webkit-scrollbar-thumb {
-      @apply bg-neutral-300 hover:bg-neutral-100;
+      @apply bg-neutral-400 hover:bg-neutral-100;
     }
   }
 }

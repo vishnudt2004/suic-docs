@@ -1,3 +1,6 @@
+import { SiGithub } from "react-icons/si";
+import { HiStar } from "react-icons/hi";
+
 import DocLayout from "@/app/_components/layout/doc-layout";
 import MdxWrapper from "@/app/_components/mdx/mdx-wrapper";
 import {
@@ -27,6 +30,7 @@ export default async function Page() {
               <CtaGradientLink />
             </div>
           ),
+          GHIcon: () => <SiGithub className="mx-0.5 -mt-1 inline" />,
         }}
       >
         {content}

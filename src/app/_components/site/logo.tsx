@@ -1,13 +1,22 @@
 import { FaCircleNotch } from "react-icons/fa6";
 
-import { cleanNewlines } from "@/app/_lib/utils/classname-utils";
+import {
+  type ClassName,
+  cleanNewlines,
+  prepareClassName as cn,
+} from "@/app/_lib/utils/classname-utils";
 
-export function LogoMini() {
+export function LogoMini({ className }: { className?: ClassName }) {
   return (
-    <div className="flex h-8 w-16 [&>*]:flex [&>*]:h-full [&>*]:w-1/2 [&>*]:items-center [&>*]:justify-center">
+    <div
+      className={cn(
+        "flex h-8 w-16 [&>*]:flex [&>*]:h-full [&>*]:w-1/2 [&>*]:items-center [&>*]:justify-center",
+        className,
+      )}
+    >
       <div className="bg-(--fg_color-g)" />
       <div className="bg-(--accent_color-g)">
-        <FaCircleNotch className="-rotate-45 text-(--fg_color-g)" />
+        <FaCircleNotch className="-rotate-45 text-(--fg_color-g) size-[50%]" />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./_styles/main.css";
 import Header from "./_components/layout/header";
+import Footer from "./_components/layout/footer";
 import ThemeProvider from "./_components/ui/theme-provider";
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -22,10 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={jakartaSans.variable} lang="en" suppressHydrationWarning>
-      <body className="mx-auto mt-2 mb-10 px-6 antialiased md:max-w-[1220px]">
+      <body className="mx-auto mt-2 px-6 antialiased md:max-w-[1220px]">
         <ThemeProvider>
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
