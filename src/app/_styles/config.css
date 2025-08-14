@@ -3,7 +3,7 @@
 :root {
   --bg_color-g: #f8f9fa;
   --fg_color-g: #181818;
-  --accent_color-g: #db7093;
+  --accent_color-g: var(--color-teal-500);
   --font_family-g: var(--font-jakarta-sans), sans-serif;
 }
 
