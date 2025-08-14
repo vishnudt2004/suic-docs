@@ -1,6 +1,7 @@
 import { BiGridAlt } from "react-icons/bi";
 
 import { RefBtn } from "@/app/_components/ui/button";
+import { CgArrowLeft } from "react-icons/cg";
 
 export default function Layout({ children }: { children: React.ReactNode[] }) {
   return (
@@ -15,7 +16,12 @@ export default function Layout({ children }: { children: React.ReactNode[] }) {
           examples, and installation guide.
         </p>
 
-        <RefBtn href="/docs" target="_self">
+        <RefBtn
+          href="/docs"
+          target="_self"
+          icon={<CgArrowLeft className="-order-1" />}
+          className="py-1 pr-3 text-[13px]"
+        >
           Core Documentation
         </RefBtn>
       </div>

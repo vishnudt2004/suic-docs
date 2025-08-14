@@ -1,4 +1,4 @@
-import { type AnchorHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes } from "react";
 import Link, { type LinkProps } from "next/link";
 import { CgArrowTopRight } from "react-icons/cg";
 
@@ -41,11 +41,12 @@ export default function Button({ asChild, className, ...props }: ButtonProps) {
 
 export type RefBtnProps = LinkProps &
   ButtonProps &
-  AnchorHTMLAttributes<HTMLAnchorElement>;
+  AnchorHTMLAttributes<HTMLAnchorElement> & { icon?: React.ReactNode };
 
 export function RefBtn({
   children = "Reference",
   href,
+  icon = <CgArrowTopRight />,
   className,
   target = "_black",
   ...rest
@@ -56,7 +57,7 @@ export function RefBtn({
       className={cn("gap-1 rounded-full px-2 py-0.5 text-xs", className)}
     >
       <Link href={href} target={target} {...rest}>
-        {children} <CgArrowTopRight />
+        {children} {icon}
       </Link>
     </Button>
   );

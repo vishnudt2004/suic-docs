@@ -11,9 +11,11 @@ export default function ThemeProvider({
 }) {
   const mounted = useMounted();
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
+  if (!mounted) return null;
 
-  return <NextThemeProvider attribute="class" enableSystem={false}>{children}</NextThemeProvider>;
+  return (
+    <NextThemeProvider attribute="class" enableSystem={false}>
+      {children}
+    </NextThemeProvider>
+  );
 }
