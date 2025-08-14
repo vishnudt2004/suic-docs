@@ -7,8 +7,8 @@ import { useMounted } from "@/app/_hooks/use-mounted";
 
 function ThemeLoading() {
   return (
-    <div className="grid h-screen place-items-center overflow-hidden">
-      <LogoMini className="h-5 w-10 animate-pulse" />
+    <div className="grid h-screen place-items-center overflow-hidden [&>*]:h-5 [&>*]:w-10 [&>*]:animate-pulse">
+      <LogoMini />
     </div>
   );
 }
