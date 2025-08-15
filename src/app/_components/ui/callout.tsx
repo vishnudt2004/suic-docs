@@ -10,12 +10,12 @@ interface CalloutProps {
 }
 
 const styles: Record<CalloutType, string> = {
-  note: "border-blue-400 bg-blue-50 text-blue-800 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200",
-  tip: "border-green-400 bg-green-50 text-green-800 dark:border-green-500 dark:bg-green-900/20 dark:text-green-200",
+  note: "border-blue-400 bg-blue-50 text-blue-900 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200",
+  tip: "border-green-400 bg-green-50 text-green-900 dark:border-green-500 dark:bg-green-900/20 dark:text-green-200",
   warning:
-    "border-yellow-400 bg-yellow-50 text-yellow-800 dark:border-yellow-500 dark:bg-yellow-900/20 dark:text-yellow-200",
+    "border-yellow-400 bg-yellow-50 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900/20 dark:text-yellow-200",
   danger:
-    "border-red-400 bg-red-50 text-red-800 dark:border-red-500 dark:bg-red-900/20 dark:text-red-200",
+    "border-red-400 bg-red-50 text-red-900 dark:border-red-500 dark:bg-red-900/20 dark:text-red-200",
 };
 
 export default function Callout({

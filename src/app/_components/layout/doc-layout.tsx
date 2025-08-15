@@ -42,7 +42,6 @@ export default function DocLayout({
         min-[950px]:sticky
         min-[950px]:block
         dark:border-neutral-700
-        [&_:last-child]:ml-1
       `,
       mobile: {
         container: `
