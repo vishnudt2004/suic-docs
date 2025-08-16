@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "embla-carousel": "^8.6.0",
-    "embla-carousel-react": "^8.6.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",

@@ -1,7 +1,6 @@
-import { BiGridAlt } from "react-icons/bi";
+import { BiBookContent, BiGridAlt, BiTerminal } from "react-icons/bi";
 
 import { RefBtn } from "@/app/_components/ui/button";
-import { CgArrowLeft } from "react-icons/cg";
 
 export default function Layout({ children }: { children: React.ReactNode[] }) {
   return (
@@ -16,14 +15,25 @@ export default function Layout({ children }: { children: React.ReactNode[] }) {
           examples, and installation guide.
         </p>
 
-        <RefBtn
-          href="/docs"
-          target="_self"
-          icon={<CgArrowLeft className="-order-1" />}
-          className="py-1 pr-3 text-[13px]"
-        >
-          Core Documentation
-        </RefBtn>
+        <div className="flex flex-wrap gap-2">
+          <RefBtn
+            href="/docs"
+            target="_self"
+            icon={null}
+            className="text-[13px]"
+          >
+            <BiBookContent /> Core Docs
+          </RefBtn>
+
+          <RefBtn
+            href="/docs/cli"
+            target="_self"
+            icon={null}
+            className="text-[13px]"
+          >
+            <BiTerminal /> CLI Docs
+          </RefBtn>
+        </div>
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(144px,1fr))] justify-center gap-2.5 md:px-5">
