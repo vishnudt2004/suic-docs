@@ -28,7 +28,7 @@ export default function DocLayout({
       min-[950px]:flex-row
     `,
     tocSidebar: {
-      heading: "mb-4 text-lg font-bold",
+      heading: "mb-4 text-lg font-bold truncate",
       desktop: `
         top-10
         hidden

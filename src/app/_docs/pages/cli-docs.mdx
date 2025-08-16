@@ -1,0 +1,163 @@
+# Simple UI Components – CLI Documentation
+
+(**suic-cli**)
+
+## Overview
+
+`suic-cli` is a command-line tool to quickly add **Simple UI Components** to your project. It fetches components from the registry and installs them in your project folder.
+
+**MVP Note:**
+
+Currently, it only supports the `add` functionality. Future plans include `remove`, `update`, and more component management features.
+
+<Callout title="Inspired By">
+
+The installation pattern in this project is inspired by [**shadcn/ui**](https://ui.shadcn.com/docs/cli).
+
+</Callout>
+
+---
+
+## Installation
+
+Install globally with `npm`, `pnpm`, or `yarn`:
+
+```bash
+# npm
+npm install -g suic-cli
+
+# pnpm
+pnpm install -g suic-cli
+
+# yarn
+yarn global add suic-cli
+```
+
+Or use `npx`, `pnpx dlx`, or `yarn dlx` without installing:
+
+```bash
+# npx
+npx suic-cli add <component-name>
+
+# pnpm
+pnpm dlx suic-cli add <component-name>
+
+# yarn
+yarn dlx suic-cli add <component-name>
+```
+
+<Callout title="Tip">
+
+It’s recommended to run the CLI without installing globally. You can use `npx`, `pnpm dlx`, or `yarn dlx` to always run the latest version temporarily.
+
+</Callout>
+
+---
+
+## Usage
+
+```plaintext
+Usage: suic-cli [options] [command]
+
+Commands:
+  add [components...]  Add components to your project
+  help [command]       Display help for command
+
+Options:
+  -h, --help           Display help for command
+  -c, --cwd <cwd>      Working directory (default: current folder)
+```
+
+---
+
+## Commands
+
+### Add Components
+
+Add one or more components to your project.
+
+**Syntax:**
+
+```bash
+suic-cli add [components...] [options]
+```
+
+**Examples:**
+
+```bash
+# Add a single component
+suic-cli add Button
+
+# Add multiple components
+suic-cli add Button Card Carousel
+
+# Add components from a different folder
+suic-cli add Button -c path/to/project
+```
+
+<Callout title="Note">
+
+- If **no components are specified**, you’ll be prompted to select from the available components in the registry.
+- Component names are **case-insensitive** (`button` and `Button` are equivalent).
+
+</Callout>
+
+---
+
+## Behavior
+
+- If a component exists in the registry:
+  - It will be installed.
+  - ✅ Success message is logged.
+
+- If a component fails to fetch:
+  - ⚠️ Warning is logged.
+
+- If a component is **not found in the registry**:
+  - ❌ Error is logged.
+
+**Example Output:**
+
+```plaintext
+√ Which components would you like to add? » Button, Card, Unknown
+✅ Successfully added components: Button, Card
+❌ Components not found in registry: Unknown
+🌐 Visit the docs site for available components: https://suic-docs.vercel.app/docs/cli
+```
+
+---
+
+## Configuration
+
+- By default, `suic-cli` stores components in:
+
+```plaintext
+<project-root>/components/suic
+```
+
+- You can specify a custom directory with the `--cwd` or `-c` _\<path\>_ option:
+
+**Example:**
+
+```bash
+suic-cli add Button -c path/to/project
+```
+
+- The CLI automatically creates a config file `suic.config.json` in your project root if it doesn’t exist.
+- You can also create the config manually with the format:
+
+```json
+{
+  "cwd": "/absolute/path/to/project",
+  "componentsDir": "/absolute/path/to/project/components/suic"
+}
+```
+
+---
+
+## Tips
+
+- If you don’t specify components, you will be prompted to select from the available registry.
+- Always refer to the docs site for the **latest components**: [https://suic-docs.vercel.app/docs/cli](https://suic-docs.vercel.app/docs/cli)
+
+<CtaLink />

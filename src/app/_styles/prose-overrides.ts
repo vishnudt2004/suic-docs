@@ -5,6 +5,9 @@ const overrides: ClassName = `
  overflow-x-hidden
 
  prose-pre:rounded-none
+ prose-blockquote:not-italic
+
+ max-sm:prose-h1:text-3xl
 
  [&_pre_code]:pt-1!
  [&_pre:has(code)]:my-0
@@ -19,7 +22,7 @@ const overrides: ClassName = `
  [&_:has(>pre_code)>.lang]:pt-0.5
  [&_:has(>pre_code)>.lang]:pb-1
  [&_:has(>pre_code)>.lang]:font-(family-name:--font_family-g)
- [&_:has(>pre_code)>.lang]:text-[12px]
+ [&_:has(>pre_code)>.lang]:text-xs
  [&_:has(>pre_code)>.lang]:text-right
  [&_:has(>pre_code)>.lang]:tracking-wider
  [&_:has(>pre_code)>.lang]:text-gray-300
@@ -34,6 +37,7 @@ const overrides: ClassName = `
  [&_:has(>pre_code.language-jsx)>.lang]:before:content-['JSX']
  [&_:has(>pre_code.language-ts)>.lang]:before:content-['TS']
  [&_:has(>pre_code.language-tsx)>.lang]:before:content-['TSX']
+ [&_:has(>pre_code.language-text)>.lang,&_:has(>pre_code.language-txt)>.lang,&_:has(>pre_code.language-plaintext)>.lang]:before:content-['Plaintext']
  [&_:has(>pre_code.language-shell)>.lang]:before:content-['Shell']
 
  [&_code:not(pre_*)]:before:content-none

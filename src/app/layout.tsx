@@ -23,10 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={jakartaSans.variable} lang="en" suppressHydrationWarning>
-      <body className="mx-auto mt-2 px-6 antialiased md:max-w-[1220px]">
+      <body className="mx-auto mt-2 flex min-h-[calc(100dvh-12px)] flex-col px-6 antialiased md:max-w-[1220px]">
         <ThemeProvider>
           <Header />
-          {children}
+          <main className="grow">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
