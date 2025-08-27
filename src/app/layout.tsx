@@ -14,6 +14,9 @@ const jakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Simple UI Components",
   description: "Personal collection of components",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

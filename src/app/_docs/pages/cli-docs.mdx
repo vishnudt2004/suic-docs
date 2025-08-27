@@ -2,53 +2,37 @@
 
 (**suic-cli**)
 
+---
+
 ## Overview
 
-`suic-cli` is a command-line tool to quickly add **Simple UI Components** to your project. It fetches components from the registry and installs them in your project folder.
+`suic-cli` is a command-line tool to manage **Simple UI Components** in your project. It allows you to initialize **suic** in your project, add, remove, and list components easily.
 
-**MVP Note:**
+**Important:** Before using `add`, `remove`, or `list` commands, you **must** run `suic-cli init`.
 
-Currently, it only supports the `add` functionality. Future plans include `remove`, `update`, and more component management features.
-
-<Callout title="Inspired By">
-
-The installation pattern in this project is inspired by [**shadcn/ui**](https://ui.shadcn.com/docs/cli).
-
-</Callout>
+- **Inspired By:** The installation pattern in this project is inspired by [**shadcn/ui**](https://ui.shadcn.com/docs/cli).
+- **Important:** `suic-core` isn’t published as a package by design. It’s a personal collection of components. You can fork or clone the [repo](https://github.com/vishnudt2004/suic-core) from GitHub if you want to use it directly.
 
 ---
 
 ## Installation
 
-Install globally with `npm`, `pnpm`, or `yarn`:
-
-```bash
-# npm
-npm install -g suic-cli
-
-# pnpm
-pnpm install -g suic-cli
-
-# yarn
-yarn global add suic-cli
-```
-
-Or use `npx`, `pnpx dlx`, or `yarn dlx` without installing:
+Use `npx`, `pnpx dlx`, or `yarn dlx` to run the CLI:
 
 ```bash
 # npx
-npx suic-cli add <component-name>
+npx suic-cli init
 
 # pnpm
-pnpm dlx suic-cli add <component-name>
+pnpm dlx suic-cli init
 
 # yarn
-yarn dlx suic-cli add <component-name>
+yarn dlx suic-cli init
 ```
 
 <Callout title="Tip">
 
-It’s recommended to run the CLI without installing globally. You can use `npx`, `pnpm dlx`, or `yarn dlx` to always run the latest version temporarily.
+It’s recommended to run the CLI with `npx`, `pnpm dlx`, or `yarn dlx` instead of installing it globally.
 
 </Callout>
 
@@ -60,26 +44,66 @@ It’s recommended to run the CLI without installing globally. You can use `npx`
 Usage: suic-cli [options] [command]
 
 Commands:
-  add [components...]  Add components to your project
-  help [command]       Display help for command
+  init                    Set up Simple UI Components in your project
+  add [components...]     Add one or more components to your project
+  remove [components...]  Remove one or more components from your project
+  list                    Show all available components with descriptions
+  help [command]          Display help for command
 
 Options:
-  -h, --help           Display help for command
-  -c, --cwd <cwd>      Working directory (default: current folder)
+  -V, --version           output the version number
+  -h, --help              display help for command
 ```
 
 ---
 
 ## Commands
 
-### Add Components
+### Init (mandatory)
 
-Add one or more components to your project.
+Initialize your project to use `suic-cli`. This creates the config file, sets up the installation directory, and installs the global internal dependencies.
+
+- add path alias automatically in `tsconfig.json` (./suic/\*)
 
 **Syntax:**
 
 ```bash
-suic-cli add [components...] [options]
+suic-cli init [options]
+```
+
+**Options:**
+
+```plaintext
+-i, --install-path <path>  Custom installation directory (default: src/suic)
+```
+
+**Example:**
+
+```bash
+suic-cli init
+suic-cli init -i src/ui
+```
+
+<Callout type="warning" title="Warning">
+
+- Running `init` again **overrides modified files**.
+- Avoid manual edits to **`suic.config.json`**. Always re-run `init` to set or change paths.
+
+</Callout>
+
+---
+
+### Add Components
+
+Add one or more components to your project.
+
+- If no components are specified, CLI prompts selection from registry.
+- Names are **case-insensitive** (`button` = `Button`).
+
+**Syntax:**
+
+```bash
+suic-cli add [components...]
 ```
 
 **Examples:**
@@ -90,15 +114,74 @@ suic-cli add Button
 
 # Add multiple components
 suic-cli add Button Card Carousel
-
-# Add components from a different folder
-suic-cli add Button -c path/to/project
 ```
 
-<Callout title="Note">
+<Callout type="warning" title="Warning">
 
-- If **no components are specified**, you’ll be prompted to select from the available components in the registry.
-- Component names are **case-insensitive** (`button` and `Button` are equivalent).
+Do not touch **`.suic/installed-registry`** — managed automatically by SUIC.
+
+</Callout>
+
+---
+
+### Remove Components
+
+Remove one or more installed components from your project.
+
+- If no components are specified, CLI lists installed ones for selection.
+- Only components from the registry are removed.
+- Component files and empty dirs cleaned automatically.
+
+**Syntax:**
+
+```bash
+suic-cli remove [components...]
+```
+
+**Example:**
+
+```bash
+suic-cli remove Button Card
+```
+
+<Callout type="warning" title="Warning">
+
+- CLI logs dependencies/devDependencies/peerDependencies no longer required.
+- Uninstall such dependencies **only if not used elsewhere in your project**.
+
+</Callout>
+
+---
+
+### List Components
+
+List all available components in the registry with their descriptions.
+
+**Syntax:**
+
+```bash
+suic-cli list
+```
+
+**Example Output:**
+
+```plaintext
+Available components:
+═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═
+
+ ● Button:
+   A clickable button element
+
+ ● Card:
+   A container for content with shadow and padding
+
+ ● Carousel:
+   A carousel component for sliding content
+```
+
+<Callout title="Tip">
+
+Use `list` before adding components to see what’s available.
 
 </Callout>
 
@@ -106,58 +189,46 @@ suic-cli add Button -c path/to/project
 
 ## Behavior
 
-- If a component exists in the registry:
-  - It will be installed.
-  - ✅ Success message is logged.
-
-- If a component fails to fetch:
-  - ⚠️ Warning is logged.
-
-- If a component is **not found in the registry**:
-  - ❌ Error is logged.
-
-**Example Output:**
-
-```plaintext
-√ Which components would you like to add? » Button, Card, Unknown
-✅ Successfully added components: Button, Card
-❌ Components not found in registry: Unknown
-🌐 Visit the docs site for available components: https://suic-docs.vercel.app/docs/cli
-```
+- **Add:** Logs installed components, warns for missing/skipped ones, and logs required dependencies with version info.
+- **Remove:** Logs removed/failed components and logs no-longer-required dependencies (only supports manual uninstall for safety).
+- **List:** Display available components with descriptions (or `(no description)` if missing).
 
 ---
 
 ## Configuration
 
-- By default, `suic-cli` stores components in:
+- Config: `suic.config.json` at project root.
+- Default path: `<project-root>/src/suic` (recommended to keep default).
+- Custom path: `--install-path` (`-i`) during `init`.
 
-```plaintext
-<project-root>/components/suic
-```
-
-- You can specify a custom directory with the `--cwd` or `-c` _\<path\>_ option:
-
-**Example:**
-
-```bash
-suic-cli add Button -c path/to/project
-```
-
-- The CLI automatically creates a config file `suic.config.json` in your project root if it doesn’t exist.
-- You can also create the config manually with the format:
+**Example config:**
 
 ```json
 {
-  "cwd": "/absolute/path/to/project",
-  "componentsDir": "/absolute/path/to/project/components/suic"
+  "installPath": "/src/suic"
 }
 ```
 
 ---
 
+## Future Updates
+
+Planned improvements (subject to change):
+
+- `uninit` → remove all CLI setup
+- Auto dependency install/uninstall optionally
+- More flags like: `init -y`, `add --override-all`, `remove --all`
+
+---
+
 ## Tips
 
-- If you don’t specify components, you will be prompted to select from the available registry.
-- Always refer to the docs site for the **latest components**: [https://suic-docs.vercel.app/docs/cli](https://suic-docs.vercel.app/docs/cli)
+- Always run `init` first.
+- Don’t manually edit/remove `suic.config.json` or `.suic/installed-registry`.
+- no components specified in `add`/`remove` will list components for selection.
+- Names are case-insensitive.
+- Can see list with `suic-cli list`.
+- CLI logs success, fail, skip for clarity.
+- Refer to the docs site for latest components: [https://suic-docs.vercel.app/docs/components](https://suic-docs.vercel.app/docs/components)
 
 <CtaLink />
