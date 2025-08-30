@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="mt-10 flex items-center justify-center gap-2 border-t border-gray-100 bg-(--bg_color-g) py-3 text-xs tracking-wider text-neutral-600 dark:border-neutral-800 dark:text-gray-300">
+    <div className="mt-10 flex flex-wrap items-center justify-center gap-2 border-t border-gray-100 bg-(--bg_color-g) py-3 text-xs tracking-wider text-nowrap text-neutral-600 dark:border-neutral-800 dark:text-gray-300">
       <span>&copy; {new Date().getFullYear()} Simple UI Components</span>|
       <span>
         by{" "}

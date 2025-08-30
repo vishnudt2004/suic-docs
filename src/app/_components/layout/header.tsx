@@ -7,10 +7,13 @@ import { LuHouse } from "react-icons/lu";
 import { LogoMini } from "../site/logo";
 import Breadcrumbs from "../ui/breadcrumbs";
 import ThemeButton from "../ui/theme-btn";
+import { useNotFound } from "@/app/_contexts/not-found-ctx";
 import { cleanNewlines } from "@/app/_lib/utils/classname-utils";
 
 export default function Header() {
   const pathname = usePathname();
+  const { notFound } = useNotFound();
+
   const hiddenRoutes = ["/", "/docs"];
 
   const style = cleanNewlines(`
@@ -31,18 +34,20 @@ export default function Header() {
 
   return (
     <nav className={style}>
-      {hiddenRoutes.includes(pathname) && (
+      {(notFound || hiddenRoutes.includes(pathname)) && (
         <Link href="/">
           <LogoMini />
         </Link>
       )}
 
-      <Breadcrumbs
-        config={{
-          "": <LuHouse />,
-        }}
-        hiddenRoutes={hiddenRoutes}
-      />
+      {!notFound && (
+        <Breadcrumbs
+          config={{
+            "": <LuHouse />,
+          }}
+          hiddenRoutes={hiddenRoutes}
+        />
+      )}
 
       <ThemeButton />
     </nav>
