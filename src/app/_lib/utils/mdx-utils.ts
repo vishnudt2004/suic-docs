@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import { notFound } from "next/navigation";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 
@@ -61,6 +62,9 @@ export async function getMdxParts({
       tocs,
     };
   } catch (error: unknown) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return notFound();
+    }
     if (error instanceof Error) {
       console.error(`Error reading MDX file: ${filePath}`, error.message);
     } else {
