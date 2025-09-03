@@ -2,24 +2,22 @@ import { notFound } from "next/navigation";
 
 import DocLayout from "@/app/_components/layout/doc-layout";
 import MdxWrapper from "@/app/_components/mdx/mdx-wrapper";
-import { getAllMdx, getMdxParts } from "@/app/_lib/utils/mdx-utils";
+import { getMdxParts } from "@/app/_lib/utils/mdx-utils";
 import constants from "@/app/_lib/constants";
+import { componentsDocsRegistry } from "@/app/_docs/registries/components-docs.registry";
 
 const {
   paths: {
-    docs: { components: docPath },
+    docs: { components: compsDocPath },
   },
 } = constants;
 
+export const dynamicParams = false;
 export async function generateStaticParams() {
-  const mdxList = await getAllMdx({ mdxFilesPath: docPath });
-
-  return mdxList.map((doc) => ({
+  return componentsDocsRegistry.map((doc) => ({
     component: doc.slug,
   }));
 }
-
-export const dynamicParams = false;
 
 export default async function Page({
   params,
@@ -28,12 +26,14 @@ export default async function Page({
 }) {
   const { component } = await params;
 
-  const { tocs, content, frontmatter } = await getMdxParts({
-    mdxFilePath: docPath,
+  const entry = componentsDocsRegistry.find((doc) => doc.slug === component);
+
+  if (entry?.draft) return notFound();
+
+  const { tocs, content } = await getMdxParts({
+    mdxFilePath: compsDocPath,
     mdxFileName: component,
   });
-
-  if (frontmatter.draft) notFound();
 
   return (
     <DocLayout tocs={tocs}>

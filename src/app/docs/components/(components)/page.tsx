@@ -3,9 +3,7 @@ import { createElement } from "react";
 import { MdOutlineBlock } from "react-icons/md";
 
 import Button from "@/app/_components/ui/button";
-import { getAllMdx } from "@/app/_lib/utils/mdx-utils";
-import { iconsMap } from "@/app/_lib/components-maps";
-import constants from "@/app/_lib/constants";
+import { componentsDocsRegistry } from "@/app/_docs/registries/components-docs.registry";
 
 type ComponentCardProps = {
   icon?: React.ElementType;
@@ -29,15 +27,9 @@ const ComponentCard = ({ icon, name, slug }: ComponentCardProps) => (
 );
 
 export default async function Components() {
-  const mdxComponents = await getAllMdx({
-    mdxFilesPath: constants.paths.docs.components,
-  });
+  const readyComponents = componentsDocsRegistry.filter((c) => !c.draft);
 
-  const readyComponents = mdxComponents.filter(
-    ({ frontmatter }) => !frontmatter.draft,
-  );
-
-  return readyComponents.map(({ frontmatter: { name }, slug }, i) => (
-    <ComponentCard key={i} icon={iconsMap[slug]} name={name} slug={slug} />
+  return readyComponents.map(({ name, slug, doc: { icon } }, i) => (
+    <ComponentCard key={i} icon={icon} name={name} slug={slug} />
   ));
 }

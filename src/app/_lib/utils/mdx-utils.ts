@@ -1,7 +1,5 @@
 import fs from "fs/promises";
 import path from "path";
-import { notFound } from "next/navigation";
-import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 
 type Heading = {
@@ -10,13 +8,9 @@ type Heading = {
   level: number;
 };
 
-type Frontmatter = {
-  name: string;
-  title: string;
-  description?: string;
-  draft: boolean;
-  [key: string]: unknown; // allow extra optional keys
-};
+// type Frontmatter = {
+//   [key: string]: unknown;
+// };
 
 function getMdxTocs(markdown: string): Heading[] {
   const slugger = new GithubSlugger();
@@ -33,7 +27,7 @@ function getMdxTocs(markdown: string): Heading[] {
     });
 }
 
-export async function getMdxParts({
+async function getMdxParts({
   mdxFilePath,
   mdxFileName,
 }: {
@@ -41,30 +35,22 @@ export async function getMdxParts({
   mdxFileName: string;
 }): Promise<{
   content: string;
-  frontmatter: Frontmatter;
   tocs: Heading[];
   filePath: string;
 }> {
   const filePath = path.join(process.cwd(), mdxFilePath, `${mdxFileName}.mdx`);
 
   try {
-    const raw = await fs.readFile(filePath, "utf8");
-    const { content, data } = matter(raw);
-
-    const frontmatter = data as Frontmatter;
+    const content = await fs.readFile(filePath, "utf8");
 
     const tocs = getMdxTocs(content);
 
     return {
       filePath,
       content,
-      frontmatter,
       tocs,
     };
   } catch (error: unknown) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return notFound();
-    }
     if (error instanceof Error) {
       console.error(`Error reading MDX file: ${filePath}`, error.message);
     } else {
@@ -74,7 +60,7 @@ export async function getMdxParts({
   }
 }
 
-export async function getAllMdx({ mdxFilesPath }: { mdxFilesPath: string }) {
+async function getAllMdx({ mdxFilesPath }: { mdxFilesPath: string }) {
   const dir = path.join(process.cwd(), mdxFilesPath);
 
   try {
@@ -85,14 +71,9 @@ export async function getAllMdx({ mdxFilesPath }: { mdxFilesPath: string }) {
         .filter((file) => file.endsWith(".mdx"))
         .map(async (file) => {
           const fileName = file.replace(/\.mdx$/, "");
-          const { frontmatter } = await getMdxParts({
-            mdxFilePath: mdxFilesPath,
-            mdxFileName: fileName,
-          });
 
           return {
             slug: fileName,
-            frontmatter,
           };
         }),
     );
@@ -105,3 +86,5 @@ export async function getAllMdx({ mdxFilesPath }: { mdxFilesPath: string }) {
     throw error;
   }
 }
+
+export { getMdxParts, getAllMdx };
