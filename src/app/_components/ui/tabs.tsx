@@ -39,7 +39,7 @@ export function TabsList({
   className?: string;
 }) {
   return (
-    <div role="tablist" className={cn("tabs__list mb-2 flex gap-4", className)}>
+    <div role="tablist" className={cn("tabs__list mb-1 flex gap-4", className)}>
       {children}
     </div>
   );
@@ -69,7 +69,7 @@ export function TabsTrigger({
       className={cn(
         "tabs__trigger cursor-pointer transition-colors hover:font-medium",
         isActive
-          ? "font-medium text-(--fg_color-g)"
+          ? "font-semibold text-(--fg_color-g)"
           : "text-neutral-600 dark:text-gray-300",
         className,
       )}
@@ -118,7 +118,7 @@ export function TabsContent({
         >
           {children}
         </motion.div>
-      ): null}
+      ) : null}
     </AnimatePresence>
   );
 }

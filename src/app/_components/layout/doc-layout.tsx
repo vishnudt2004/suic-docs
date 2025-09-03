@@ -30,10 +30,12 @@ export default function DocLayout({
     tocSidebar: {
       heading: "mb-4 text-lg font-bold truncate",
       desktop: `
+        shrink-0
         top-10
         hidden
         h-[80dvh]
-        w-64
+        w-[200px]
+        lg:w-[230px]
         overflow-y-auto
         border-r
         border-gray-300
@@ -48,7 +50,7 @@ export default function DocLayout({
           fixed
           inset-y-0
           right-0
-          z-0
+          z-1
           m-auto
           h-dvh
           overflow-y-auto
@@ -61,10 +63,10 @@ export default function DocLayout({
           dark:border-neutral-600
           [&_:last-child]:ml-1
         `,
-        btn: "fixed right-6 bottom-6 z-1 rounded-full p-4 min-[950px]:hidden",
+        btn: "fixed right-6 bottom-6 z-2 rounded-full p-4 min-[950px]:hidden",
       },
     },
-    contentContainer: "flex-1 md:px-4 pt-2 pb-40 [&_:is(h2,h3,h4)]:scroll-m-20",
+    contentContainer: "flex-1 min-w-0 pt-2 pb-40 md:px-4",
   });
 
   return (

@@ -16,7 +16,7 @@ export default function MdxWrapper({
 }: {
   children: string;
   className?: string;
-  additionalComponents?: Record<string, React.ComponentType>;
+  additionalComponents?: Record<string, React.ComponentType<any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
 }) {
   return (
     <div

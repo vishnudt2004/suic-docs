@@ -42,4 +42,18 @@ body {
       @apply bg-neutral-100;
     }
   }
+
+  .secondary-scrollbar {
+    &::-webkit-scrollbar {
+      @apply size-[5px] border-0;
+    }
+
+    &::-webkit-scrollbar-track {
+      @apply my-0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply border-0;
+    }
+  }
 }

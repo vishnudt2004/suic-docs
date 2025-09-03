@@ -9,6 +9,7 @@ const overrides: ClassName = `
 
  max-sm:prose-h1:text-3xl
 
+ [&_pre_code]:text-wrap!
  [&_pre_code]:pt-1!
  [&_pre:has(code)]:my-0
  [&_pre:has(code)]:p-0!
@@ -19,8 +20,7 @@ const overrides: ClassName = `
 
  [&_:has(>pre_code)>.lang]:mx-2
  [&_:has(>pre_code)>.lang]:mb-2
- [&_:has(>pre_code)>.lang]:pt-0.5
- [&_:has(>pre_code)>.lang]:pb-1
+ [&_:has(>pre_code)>.lang]:py-1
  [&_:has(>pre_code)>.lang]:font-(family-name:--font_family-g)
  [&_:has(>pre_code)>.lang]:text-xs
  [&_:has(>pre_code)>.lang]:text-right
