@@ -1,10 +1,10 @@
-import { ComponentType, HTMLAttributes } from "react";
-import type { MDXComponents } from "next-mdx-remote-client";
+import { HTMLAttributes } from "react";
+import { type MDXComponents } from "next-mdx-remote-client";
 import { IconType } from "react-icons";
-import { ClassValue } from "clsx";
 
 import Callout from "@/app/_components/ui/callout";
 import { type RefBtnProps, RefBtn } from "@/app/_components/ui/button";
+import CodeBlock from "@/app/_components/ui/code-block";
 import {
   TabsBody,
   TabsContent,
@@ -12,28 +12,13 @@ import {
   TabsRoot,
   TabsTrigger,
 } from "@/app/_components/ui/tabs";
-import { componentExamplesMap, iconsMap } from "@/app/_lib/components-maps";
-import { prepareClassName as cn } from "@/app/_lib/utils/classname-utils";
-
-type ComponentMapType = { componentName: string; className?: ClassValue[] };
-
-function Icon({ componentName, className }: ComponentMapType) {
-  const Icon: IconType = iconsMap[componentName];
-  return (
-    <Icon
-      className={cn(
-        "mr-2 [:has(>&)]:inline-flex [:has(>&)]:items-center",
-        className,
-      )}
-    />
-  );
-}
-
-function ExamplePreview({ componentName }: ComponentMapType) {
-  const ExampleComponent: ComponentType = componentExamplesMap[componentName];
-  if (!ExampleComponent) return <div>There are no examples available.</div>;
-  return <ExampleComponent />;
-}
+import { ExampleContainer, ExampleFallback, ExampleLoader } from "./shared";
+import { getRawCode } from "@/app/_lib/utils/mdx-utils";
+import {
+  prepareClassName as cn,
+  type ClassName,
+} from "@/app/_lib/utils/classname-utils";
+import { componentsDocsRegistry } from "@/app/_docs/registries/components-docs.registry";
 
 export const mdxComponents: MDXComponents = {
   // Override defaults
@@ -61,7 +46,52 @@ export const mdxComponents: MDXComponents = {
     />
   ),
   Callout,
-  // Helper components for mappings
-  Icon,
-  ExamplePreview,
 };
+
+function CompIcon({
+  icon: Icon,
+  className,
+}: {
+  icon?: IconType;
+  className?: ClassName;
+}) {
+  if (!Icon) return "";
+  return (
+    <Icon
+      className={cn(
+        "mr-2 [:has(>&)]:inline-flex [:has(>&)]:items-center",
+        className,
+      )}
+    />
+  );
+}
+
+type CompRawCodeProps = {
+  slug: string;
+  example?: string;
+};
+
+async function CompRawCode({ slug, example }: CompRawCodeProps) {
+  const entry = componentsDocsRegistry.find((c) => c.slug === slug);
+  if (!entry) return; // always covered by generateStaticParams
+
+  const examples = entry.doc.examples || {};
+  const key = example ?? slug;
+  const foundExample = examples[key];
+
+  if (!foundExample)
+    return <ExampleFallback type={example ? "not-found" : "not-available"} />;
+
+  const filePath = examples[key].file;
+
+  const rawCode = await getRawCode(filePath);
+
+  return (
+    <ExampleContainer title={foundExample.name}>
+      <CodeBlock loader={<ExampleLoader />}>{rawCode}</CodeBlock>
+    </ExampleContainer>
+  );
+}
+
+export { CompIcon, CompRawCode };
+export type { CompRawCodeProps };

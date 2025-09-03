@@ -87,4 +87,18 @@ async function getAllMdx({ mdxFilesPath }: { mdxFilesPath: string }) {
   }
 }
 
-export { getMdxParts, getAllMdx };
+async function getRawCode(file: string) {
+  try {
+    // normalize @/ path alias
+    const normalized = file.replace(/^@\//, "");
+    const filePath = path.join(process.cwd(), normalized);
+
+    const code = await fs.readFile(filePath, "utf-8");
+    return code;
+  } catch (err) {
+    console.error(`Failed to load raw code for: ${file}`, err);
+    throw err;
+  }
+}
+
+export { getMdxParts, getAllMdx, getRawCode };

@@ -2,9 +2,19 @@ import { notFound } from "next/navigation";
 
 import DocLayout from "@/app/_components/layout/doc-layout";
 import MdxWrapper from "@/app/_components/mdx/mdx-wrapper";
+import {
+  CompIcon,
+  CompRawCode,
+  type CompRawCodeProps,
+} from "@/app/_components/mdx/mdx-components";
+import {
+  CompPreview,
+  type CompPreviewProps,
+} from "@/app/_components/mdx/mdx-components.client";
 import { getMdxParts } from "@/app/_lib/utils/mdx-utils";
 import constants from "@/app/_lib/constants";
 import { componentsDocsRegistry } from "@/app/_docs/registries/components-docs.registry";
+import { type ClassName } from "@/app/_lib/utils/classname-utils";
 
 const {
   paths: {
@@ -37,7 +47,21 @@ export default async function Page({
 
   return (
     <DocLayout tocs={tocs}>
-      <MdxWrapper>{content}</MdxWrapper>
+      <MdxWrapper
+        additionalComponents={{
+          CompIcon: ({ className }: { className: ClassName }) => (
+            <CompIcon icon={entry?.doc?.icon} className={className} />
+          ),
+          CompPreview: (props: Pick<CompPreviewProps, "example">) => (
+            <CompPreview slug={entry?.slug || ""} {...props} />
+          ),
+          CompRawCode: (props: Pick<CompRawCodeProps, "example">) => (
+            <CompRawCode slug={entry?.slug || ""} {...props} />
+          ),
+        }}
+      >
+        {content}
+      </MdxWrapper>
     </DocLayout>
   );
 }
