@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simple UI Components
 
-## Getting Started
+**Simple UI Components** is a **personal, local-first collection of reusable UI and frontend utility components** — installed locally as editable source code with minimal setup. Each component is **handcrafted from scratch**, reflecting my own ideas and needs while staying flexible enough to adapt to yours.
 
-First, run the development server:
+This is **not** a large, general-purpose UI library. Instead, it’s a **curated set of distinctive, editable components** designed for **direct integration into your projects** — perfect for portfolio work, prototypes, or internal tools.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> **Note:**  
+> Every component is built independently — no direct copies from other libraries.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Simple UI Components – Docs
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The **suic-docs** (Simple UI Components Docs) repository powers the official documentation website for the SUIC ecosystem. It offers detailed guides, usage examples, and live previews for every component in **suic-core** (Simple UI Components Core), making it easy for developers to explore and integrate components into their projects.
 
-## Learn More
+[Live Site](https://suic-docs.vercel.app/docs)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ✨ Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 🖥️ **Clean and Modern User Interface**
+- 📖 **Documentation for SUIC CLI and all SUIC components**
+- 🎨 **Interactive previews of components**
+- ⚡ **Built with Next.js, TypeScript, Tailwind, and MDX**
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🛠️ Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Introduction
+
+- **Parent repo (`suic-docs`)** → Documentation website (Next.js)
+- **Submodule (`suic-core`)** → Core components library
+
+#### Workflow
+
+**suic-docs**
+
+- Root (Next.js): `/`, docs logic: `src/app/`
+- Commands:
+  - Dev: `npm run dev`
+  - Build: `npm run build`
+  - Prod: `npm start`
+- Docs live in: `src/app/_docs/`
+  - Blueprints: `blueprints/`
+  - Components: `components/`
+  - Examples: `examples/`
+  - Registries: `registries/`
+- Registries here are **docs-specific** (update manually)
+
+**suic-core**
+
+- Submodule path: `src/core/`
+- Commands:
+  - Init: `npm run sub:init`
+  - Update: `npm run sub:update`
+- Add/modify/remove components here
+- Registries here are **CLI-specific** (update manually)
+
+#### Hints
+
+- **Avoid wildcard**: avoid using `git add .` in the parent repo; always update the submodule pointer manually
+- **Branch check**: ensure correct branch in submodule before committing
+- **Commit/Push order**: submodule first (`suic-core`), then parent (`suic-docs`)
+- **Registries**: update manually (automation planned for future)
+
+---
+
+### 🔗 Related
+
+- [SUIC-CLI Docs](https://suic-docs.vercel.app/docs/cli)
+- [View Components](https://suic-docs.vercel.app/docs/components)
+- [SUIC-Examples Home (Coming soon)](#)
