@@ -14,7 +14,7 @@ const jakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "Simple UI Components",
-  description: "Personal collection of components",
+  description: "Simple UI Components - Docs",
   icons: {
     icon: "/favicon.png",
   },

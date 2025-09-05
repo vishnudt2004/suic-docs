@@ -4,16 +4,24 @@
 
 ---
 
-## Overview
+## Introduction
 
 `suic-cli` is a command-line tool to manage **Simple UI Components** in your project. It allows you to initialize **suic** in your project, add, remove, and list components easily.
 
 **Important:** Before using `add`, `remove`, or `list` commands, you **must** run `suic-cli init`.
 
 - **Inspired By:** The installation pattern in this project is inspired by [**shadcn/ui**](https://ui.shadcn.com/docs/cli).
-- **Important:** `suic-core` isn’t published as a package by design. It’s a personal collection of components. You can fork or clone the [repo](https://github.com/vishnudt2004/suic-core) from GitHub if you want to use it directly.
+- **Heads Up:** `suic-core` isn’t published as a package by design. It’s a personal collection of components. You can fork or clone the [repo](https://github.com/vishnudt2004/suic-core) from GitHub if you want to use it directly.
 
 ---
+
+### Version & Compatibility
+
+Simple UI Components CLI (suic-cli) version.
+
+<Callout title="Note: CLI status">
+CLI version: 1.0.0
+</Callout>
 
 ## Installation
 
@@ -155,7 +163,7 @@ suic-cli remove Button Card
 
 ### List Components
 
-List all available components in the registry with their descriptions.
+Display all available components in the registry, along with their descriptions and documentation URLs.
 
 **Syntax:**
 
@@ -171,12 +179,15 @@ Available components:
 
  ● Button:
    A clickable button element
+   Docs: <doc-url>
 
  ● Card:
    A container for content with shadow and padding
+   Docs: <doc-url>
 
  ● Carousel:
    A carousel component for sliding content
+   Docs: <doc-url>
 ```
 
 <Callout title="Tip">
