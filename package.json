@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sub:init": "git submodule update --init --recursive",
+    "sub:update": "git submodule update --remote --merge"
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
@@ -32,6 +35,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "embla-carousel": "^8.6.0",
     "eslint": "^9.32.0",
     "eslint-config-next": "^15.4.5",
     "prettier-plugin-tailwindcss": "^0.6.14",

@@ -1,0 +1,166 @@
+# <CompIcon /> Carousel
+
+## Introduction
+
+A responsive and fully customizable carousel component supporting horizontal and vertical layouts, optional decorations, Embla integration, and accessible controls.
+
+<RefBtn href="https://github.com/vishnudt2004/suic-core/components/carousel" className="mr-1">Code on GitHub</RefBtn> <RefBtn href="https://www.embla-carousel.com/">Embla Docs</RefBtn>
+
+---
+
+## About
+
+This component provides a scrollable carousel with content and visuals. It supports **landscape** and **portrait** layouts, optional decorative elements, and is highly customizable through props. Accessibility is considered with ARIA labels for slides and buttons.
+
+Ideal for **galleries, feature highlights, product showcases**, and **presentations**.
+
+> Built with **Embla carousel**.
+
+---
+
+## Preview
+
+_*See examples below for live previews.*_
+
+---
+
+## Installation
+
+<InstallCommands installCmd="suic-cli add carousel" />
+
+---
+
+## Usage
+
+```tsx
+import Carousel, {
+  Slide,
+  Config,
+  CarouselProps,
+} from "suic/components/carousel";
+
+const slides: Slide[] = [
+  { content: <div>Slide 1</div>, visual: <img src="/slide1.jpg" /> },
+  { content: <div>Slide 2</div>, visual: <img src="/slide2.jpg" /> },
+];
+
+<Carousel slides={slides} variant="landscape" />;
+```
+
+---
+
+## Examples
+
+<TabsRoot defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsBody>
+    <TabsContent value="preview">
+      <CompPreview example="carousel-landscape" />
+    </TabsContent>
+    <TabsContent value="code">
+      <CompRawCode example="carousel-landscape" />
+    </TabsContent>
+  </TabsBody>
+</TabsRoot>
+
+<br />
+
+<TabsRoot defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsBody>
+    <TabsContent value="preview">
+      <CompPreview example="carousel-portrait" />
+    </TabsContent>
+    <TabsContent value="code">
+      <CompRawCode example="carousel-portrait" />
+    </TabsContent>
+  </TabsBody>
+</TabsRoot>
+
+> Visit for more examples: # (Coming soon)
+
+---
+
+## Props
+
+| Prop     | Type                          | Default       | Description                                        |
+| -------- | ----------------------------- | ------------- | -------------------------------------------------- |
+| slides\* | `Slide[]`                     | `[]`          | Array of slide objects (content, visual, etc.)     |
+| variant  | `'landscape'` \| `'portrait'` | `'landscape'` | Orientation of the carousel.                       |
+| config   | `Config`                      | `{}`          | Custom configuration options.                      |
+| onInit   | `(api) => void`               | `undefined`   | Optional callback for accessing Embla API on init. |
+
+**Slide**
+
+```ts
+type Slide = {
+  content: ReactNode;
+  visual: ReactNode;
+  decor?: ReactNode;
+  decorPosition?: string; // Tailwind positioning classes (top, left, etc.)
+  accentColor?: string;
+};
+```
+
+**Config**
+
+```ts
+type Config = {
+  width?: string;
+  height?: string;
+  surfaceColor?: string;
+  textColor?: string;
+  controlsColor?: string;
+  accentColor?: string;
+  slidesDecor?: ReactNode;
+  slidesDecorPosition?: string; // Tailwind positioning classes
+  containerStyle?: CSSProperties;
+  containerClassName?: string;
+  emblaOptions?: EmblaOptionsType;
+  emblaPlugins?: EmblaPluginType[];
+};
+```
+
+---
+
+## Customization
+
+- The `config` prop provides multiple scoped customization options including dimensions, colors, decorations, and Embla features.
+- CSS variables can be used with `config.containerStyle` (not recommended, as `config` props are scoped).
+
+  - Supported variables: `--w`, `--h`, `--surface-color`, `--text-color`, `--controls-color`, `--accent-color`
+
+- Style the container using `config.containerStyle` (e.g., `{ border: "2px solid", borderRadius: "10px" }`).
+- Add Tailwind/custom classes to the container using `config.containerClassName`.
+- Use `emblaOptions` and `emblaPlugins` to extend behavior (looping, autoplay, axis change, etc.). See: [https://www.embla-carousel.com/api/](https://www.embla-carousel.com/api/).
+- Supports responsive layouts and portrait/landscape variants.
+
+---
+
+## Usage Tips
+
+- Pass `null` for `slidesDecor` to remove decorations.
+- You can provide either uniform or individual decoration elements, positions, and accent colors per slide.
+- Use `onInit` to access Embla API for advanced interactions (custom events, autoplay, etc.).
+- Tested on React 19 and Tailwind CSS v4. May work on other versions, but not officially tested.
+
+<Callout type="tip" title="Tips">
+- Keep 3-6 slides max for better UI. Otherwise, reduce the size of controls element manually.
+- Control responsiveness by switching portrait/landscape variant between screens using [Tailwind responsive classes](https://tailwindcss.com/docs/responsive-design) or hooks like [useMediaQuery](https://usehooks.com/usemediaquery).
+- Use a wider aspect ratio for landscape (e.g., 1200x500) and a taller ratio for portrait (e.g., 300x550).
+</Callout>
+
+---
+
+## Related Sources
+
+- [Embla Carousel](https://www.embla-carousel.com/)
+- [Embla Options](https://www.embla-carousel.com/api/options)
+- [Embla Plugins](https://www.embla-carousel.com/plugins/)
+- [More Examples (Coming soon)](#)
