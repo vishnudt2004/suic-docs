@@ -2,14 +2,13 @@ function ExampleLoader() {
   return <p>Loading…</p>;
 }
 
-function ExampleFallback({
-  type = "not-found",
-}: {
-  type?: "not-found" | "not-available";
-}) {
-  return (
-    <p>{type === "not-found" ? "Example not found" : "No example available"}</p>
-  );
+function ExampleFallback({ type }: { type: "not-found" | "not-available" }) {
+  const messages = {
+    "not-found": <p>Example not found</p>,
+    "not-available": <p>No example available</p>,
+  };
+
+  return messages[type];
 }
 
 function ExampleContainer({

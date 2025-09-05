@@ -18,7 +18,43 @@ import {
   prepareClassName as cn,
   type ClassName,
 } from "@/app/_lib/utils/classname-utils";
+import type { PackageManagers } from "@/app/_lib/types";
 import { componentsDocsRegistry } from "@/app/_docs/registries/components-docs.registry";
+
+type InstallCommandProps = {
+  defaultPkg?: PackageManagers;
+  installCmd: string;
+};
+
+function InstallCommands({
+  defaultPkg = "npm",
+  installCmd,
+}: InstallCommandProps) {
+  const commandsMap: Record<PackageManagers, string> = {
+    npm: "npx",
+    pnpm: "pnpm dlx",
+    yarn: "yarn dlx",
+  };
+
+  return (
+    <TabsRoot defaultValue={defaultPkg}>
+      <TabsList>
+        {Object.keys(commandsMap).map((pkg) => (
+          <TabsTrigger key={pkg} value={pkg}>
+            {pkg}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      <TabsBody>
+        {Object.entries(commandsMap).map(([pkg, cmd]) => (
+          <TabsContent key={pkg} value={pkg}>
+            <CodeBlock>{`${cmd} ${installCmd}`}</CodeBlock>
+          </TabsContent>
+        ))}
+      </TabsBody>
+    </TabsRoot>
+  );
+}
 
 export const mdxComponents: MDXComponents = {
   // Override defaults
@@ -46,6 +82,7 @@ export const mdxComponents: MDXComponents = {
     />
   ),
   Callout,
+  InstallCommands,
 };
 
 function CompIcon({
