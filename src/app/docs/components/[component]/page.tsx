@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 export default async function Page({
   params,
 }: {
-  params: { component: string };
+  params: Promise<{ component: string }>;
 }) {
   const { component } = await params;
 
