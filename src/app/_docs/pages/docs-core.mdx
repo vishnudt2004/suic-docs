@@ -33,7 +33,7 @@ Project version and core library compatibility details.
 <Callout title="Note: Project Status">
 
 Version: 0.1.0 – Work in progress  
-Compatibility: Tailwind CSS v4, React 19.1.0, React Dom 19.1.0
+Compatibility: Tailwind CSS v4, React 19.1.0, React Dom 19.1.0, TypeScript v5
 
 </Callout>
 
@@ -41,6 +41,7 @@ This package is tested against the following versions:
 - React: `19.1.0`
 - React DOM: `19.1.0`
 - Tailwind CSS: `^4`
+- TypeScript: `^5`
 
 Other versions may work (e.g. React 18), but they are not officially tested.
 If you encounter issues on older versions, please upgrade to the tested versions.
@@ -69,7 +70,7 @@ suic-cli add [components...]
 ## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button";
+import { Button } from "suic/components/button";
 
 export default function Example() {
   return <Button>Click Me</Button>;
@@ -84,22 +85,24 @@ Each page clearly explains installation, usage, customization, and includes **co
 
 ## Customization
 
-- Built with Tailwind CSS — override styles directly via `className`.
-- Supports deep customization through structured `classNames` props (e.g., `classNames.parent`, `classNames.child`).
-- Many components also provide customization-specific props (e.g., `accentColor`, `decorationElements`).
+- Each component provides **config props** for customization.
+  These props allow you to adjust behavior, appearance, or variants within a safe scope.
 
-Example:
+- Components are installed as raw `.tsx` files, so technically you can modify them.
+  However:  
+  - Re-installing the same component (via `suic-cli`) will override your changes.
+  - You should **not modify global dependencies** (installed during `suic-cli init`), since they are shared across components and will be replaced without warning if you later add more components.
+
+<Callout type="tip" title="Tip">
+
+Use `suic-cli list` to see all available components with their corresponding documentation links.
+
+</Callout>
+
+**Example**:
 
 ```tsx
-<Button className="bg-red-500 hover:bg-red-600">Delete</Button>
-```
-
-or
-
-```tsx
-<Button classNames={{ parent: "bg-blue-500", child: "text-white" }}>
-  Save
-</Button>
+<Carousel slides={slides} variant="landscape" />
 ```
 
 ---

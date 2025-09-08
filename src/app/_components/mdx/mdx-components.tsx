@@ -83,6 +83,7 @@ export const mdxComponents: MDXComponents = {
   ),
   Callout,
   InstallCommands,
+  CodeBlock,
 };
 
 function CompIcon({
